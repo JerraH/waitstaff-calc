@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calculator">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://code.angularjs.org/1.3.10/angular.js"></script>
+    <script src="https://code.angularjs.org/1.3.0/angular-messages.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="myController">
+  <div class="container">
+    <div class="header">
+      <h1>Waitstaff Calculator</h1>
+    </div>
+    <div class="calculator">
+      <div class="app">
+        <div class="head">Enter the Meal Details</div>
+        <div class="nonhead">
+        <form name="calculateMe" novalidate ng-submit='submit()'>
+          <div class="inputbox">
+            Base meal price: $ <input type="number" class="input" require>
+          </div>
+          <div class="inputbox">
+            Tax Rate: % <input type="percent" class="input" require>
+          </div>
+          <div class="inputbox">
+            Tip percent: % <input type="number" class="input" require>
+          </div>
+          <div class="buttonbox">
+            <input type="submit" class="button">
+            <button ng-click="cancel()">Cancel</button>
+          </div>
+        </form>
+        </div> <!-- nonhead -->
+      </div> <!-- app -->
+      <div class="results">
+        <div class="charges">
+      	  <div class="head">Customer Charges
+      	  </div>
+      	  <div class="nonhead">
+      	  </div>
+        </div>
+
+        <div class="earnings">
+          <div class="head">My Earnings Info</div>
+          <div class="nonhead">
+          </div>
+        </div> 
+       </div> <!-- results -->
+    </div> <!-- calculator -->
+
+  </div> <!-- container -->
+	
+</body>
+</html>
