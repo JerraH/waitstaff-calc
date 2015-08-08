@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://code.angularjs.org/1.3.10/angular.js"></script>
     <script src="https://code.angularjs.org/1.3.0/angular-messages.min.js"></script>
     <script src="app.js"></script>
@@ -20,17 +19,17 @@
         <div class="nonhead">
         <form name="calculateMe" novalidate ng-submit='submit()'>
           <div class="inputbox">
-            Base meal price: $ <input type="number" class="input" require>
+            Base meal price: $ <input name="price" class="input" ng-model="baseIn" require>
           </div>
           <div class="inputbox">
-            Tax Rate: % <input type="percent" class="input" require>
+            Tax Rate: % <input name="tax" class="input" ng-model="taxIn" require><span ng-if="calculateMe.$submitted" ng-message="required">Please don't leave out the tip!</span>
           </div>
           <div class="inputbox">
-            Tip percent: % <input type="number" class="input" require>
+            Tip percent: % <input name="tip" class="input" ng-model="tipIn" require><span ng-if="calculateMe.$submitted" ng-message="calculateMe.tip.$error"><span class="error" ng-message="required">Please don't leave out the tip!</span></span>
           </div>
           <div class="buttonbox">
             <input type="submit" class="button">
-            <button ng-click="cancel()">Cancel</button>
+            <button ng-click="toZero()">Cancel</button>
           </div>
         </form>
         </div> <!-- nonhead -->
@@ -40,17 +39,23 @@
       	  <div class="head">Customer Charges
       	  </div>
       	  <div class="nonhead">
+      	    Subtotal: {{ taxed | currency }} <br>
+      	    Tip: <span ng-if="calculateMe.$submitted">{{ tipDisplay | percent }}</span><br>
+      	    Total: {{ tipped | currency }}
       	  </div>
         </div>
 
         <div class="earnings">
           <div class="head">My Earnings Info</div>
           <div class="nonhead">
+            Tip Total: {{ tipTotal | currency }}<br>
+            Meal Count: {{ mealCount }}<br>
+            Average Tip Per Meal: {{ tipAverage | currency }}
           </div>
         </div> 
        </div> <!-- results -->
     </div> <!-- calculator -->
-
+    <button class="reset" ng-click="reset()">Reset</button>
   </div> <!-- container -->
 	
 </body>

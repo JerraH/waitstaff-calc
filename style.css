@@ -19,6 +19,7 @@
 .calculator {
 	height:100%;
 	position:relative;
+	line-height:200%;
 }
 
 .app, .results {
@@ -76,5 +77,16 @@ html {
 }
 
 .input {
-	height:3vh;
+	height:4vh;
+	margin:0;
+}
+
+.reset {
+	position:relative;
+	display:inline-block;
+	float: right;
+}
+
+.error {
+	color: red;
 }
