@@ -1,4 +1,4 @@
-var calculator = angular.module('calculator', ['ngMessages', 'waitstaffFilters']);
+var calculator = angular.module('calculator', [ 'waitstaffFilters']);
 
 calculator.controller('myController', ['$scope', function($scope){
 
@@ -11,6 +11,9 @@ calculator.controller('myController', ['$scope', function($scope){
 	$scope.tipDisplay = 0;
 	$scope.tipTotal = 0;
 	$scope.tipAverage = 0;
+	$scope.baseIn = '';
+	$scope.tipIn = '';
+	$scope.taxIn = '';
 
 	$scope.clear = function() {
 		$scope.baseIn = '';
@@ -21,49 +24,62 @@ calculator.controller('myController', ['$scope', function($scope){
 		$scope.tip = '';
 		$scope.tipped = '';
 		$scope.taxed = '';
-		$scope.tipDisplay = '';
-	}
+		$scope.tipDisplay = 0;
+	};
 
 
 	$scope.reset = function() {
-		clear();  
+		$scope.clear();  
 		$scope.mealCount = 0;
 		$scope.tipTotal = 0;
 		$scope.tipAverage = 0;
-	}
+	};
 
 	$scope.toZero = function() {
 		$scope.baseIn = '';
 		$scope.tipIn = '';
 		$scope.taxIn = '';
-	}
+	};
 
-		var base = '';
-		var tip = '';
-		var tax = '';
+		var submittedEver = false;
 
+
+		
 
 
 	$scope.submit =function() {
-		base = $scope.baseIn;
-		tip = $scope.tipIn;
-		tax = $scope.taxIn;
-		$scope.base = base;
-		$scope.tax = '.' + tax;
-		$scope.tip = '.' + tip;
-		$scope.tipDisplay = tip;
-		$scope.taxed = $scope.base + ($scope.base * $scope.tax);
-		$scope.tipped = $scope.taxed + ($scope.taxed * $scope.tip);
+		console.log($scope.calculateMe.price.$invalid);
+		$scope.calculateMe.submitted = false;
+	if($scope.calculateMe.$valid) {
+		submittedEver = true;
 		$scope.mealCount += 1;
-		$scope.tipFinal = $scope.tipped - $scope.taxed;
-		$scope.tipTotal +=  $scope.tipFinal;
-		$scope.tipAverage = $scope.tipTotal / $scope.mealCount;
+		$scope.base = $scope.baseIn;
+		$scope.tip = $scope.tipIn;
+		$scope.tax = $scope.taxIn;
+		$scope.taxDec = ($scope.tax / 100) + 1;
+		$scope.tipDec = ($scope.tip / 100) + 1;
+		$scope.tipDisplay = $scope.tip;
+		$scope.taxed = $scope.base * $scope.taxDec;
+		$scope.tipped = $scope.taxed * $scope.tipDec;
+		$scope.tipFinal = ($scope.tipped - $scope.taxed);
+		$scope.tipTotal = $scope.tipTotal + $scope.tipFinal;
+		$scope.tipAverage = ($scope.tipTotal / $scope.mealCount);
+		console.log($scope.tipped);
+		console.log($scope.taxed);
+		console.log($scope.tipFinal);
+		console.log($scope.tipTotal);
+		console.log($scope.tipAverage);
 		$scope.toZero();
-	};
+		$scope.calculateMe.submitted = false;
+		}
+		else {
+			$scope.calculateMe.submitted = true;
+		};
+};
 
 
 
-}])
+}]); //controller
 
 var filters = angular.module('waitstaffFilters', []);
 
